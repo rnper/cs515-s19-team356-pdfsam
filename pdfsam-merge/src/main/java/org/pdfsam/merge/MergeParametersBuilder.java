@@ -67,38 +67,45 @@ class MergeParametersBuilder extends AbstractPdfOutputParametersBuilder<MergePar
     		}
     	}
     	
-    	int previous = -1;
-    	int start = pages.first();
-    	Set<PageRange> newSelection = new LinkedHashSet<PageRange>();
-    	
-    	for (int page: pages)
+    	if(pages.size()>0)
     	{
-    		if(previous == -1)
-    		{
-    			previous = page;
-    		}
-    		else
-    		{
-    			if(page-previous!=1)
-    			{
-    				PageRange pageRange = new PageRange(start,previous);
-    				newSelection.add(pageRange);
-    				start = page;
-    				previous = page;  				
-    			}
-    			else
-    			{
-    				previous++;
-    			}
-    		}
+	    	int previous = -1;
+	    	int start = pages.first();
+	    	Set<PageRange> newSelection = new LinkedHashSet<PageRange>();
+	    	
+	    	for (int page: pages)
+	    	{
+	    		if(previous == -1)
+	    		{
+	    			previous = page;
+	    		}
+	    		else
+	    		{
+	    			if(page-previous!=1)
+	    			{
+	    				PageRange pageRange = new PageRange(start,previous);
+	    				newSelection.add(pageRange);
+	    				start = page;
+	    				previous = page;  				
+	    			}
+	    			else
+	    			{
+	    				previous++;
+	    			}
+	    		}
+	    	}
+	    	
+	    	PageRange pageRange = new PageRange(start,previous);
+	    	newSelection.add(pageRange);
+	    	
+	    	PdfMergeInput modifiedInput = new PdfMergeInput(input.getSource(),newSelection);
+	    	this.inputs.add(modifiedInput);
+    	}
+    	else
+    	{
+    		this.inputs.add(input);
     	}
     	
-    	PageRange pageRange = new PageRange(start,previous);
-    	newSelection.add(pageRange);
-    	
-    	PdfMergeInput modifiedInput = new PdfMergeInput(input.getSource(),newSelection);
-    	this.inputs.add(modifiedInput);
-
     }
 
     boolean hasInput() {
