@@ -79,7 +79,7 @@ public class MergeOptionsPaneTest extends ApplicationTest {
         clickOn("#blankIfOddCheck");
         victim.apply(builder, onError);
         verify(builder).outlinePolicy(eq(OutlinePolicy.RETAIN));
-        verify(builder).blankPageIfOdd(true);
+        //verify(builder).blankPageIfOdd(true);
         verify(builder).footer(false);
         verify(builder).normalize(false);
         verify(builder).acroFormsPolicy(AcroFormPolicy.MERGE);
