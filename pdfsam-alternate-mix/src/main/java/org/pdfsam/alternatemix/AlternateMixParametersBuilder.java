@@ -26,15 +26,14 @@ import org.sejda.common.collection.NullSafeSet;
 import org.sejda.model.input.PdfMixInput;
 import org.sejda.model.output.FileTaskOutput;
 import org.sejda.model.parameter.AlternateMixMultipleInputParameters;
-
 /**
  * Builder for the {@link AlternateMixMultipleInputParameters}
  * 
  * @author Andrea Vacondio
  *
  */
-class AlternateMixParametersBuilder extends AbstractPdfOutputParametersBuilder<AlternateMixMultipleInputParameters>
-        implements SingleOutputTaskParametersBuilder<AlternateMixMultipleInputParameters> {
+class AlternateMixParametersBuilder extends AbstractPdfOutputParametersBuilder<AlternateMixInputParameters>
+        implements SingleOutputTaskParametersBuilder<AlternateMixInputParameters> {
 
     private FileTaskOutput output;
     private Set<PdfMixInput> inputs = new NullSafeSet<>();
@@ -53,8 +52,9 @@ class AlternateMixParametersBuilder extends AbstractPdfOutputParametersBuilder<A
     }
 
     @Override
-    public AlternateMixMultipleInputParameters build() {
-        AlternateMixMultipleInputParameters params = new AlternateMixMultipleInputParameters();
+    public AlternateMixInputParameters build() {
+    	
+    	AlternateMixInputParameters params = new AlternateMixInputParameters();
         params.setCompress(isCompress());
         params.setExistingOutputPolicy(existingOutput());
         params.setVersion(getVersion());

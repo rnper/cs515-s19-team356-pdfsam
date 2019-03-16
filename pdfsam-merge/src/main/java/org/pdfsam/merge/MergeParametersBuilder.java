@@ -98,7 +98,7 @@ class MergeParametersBuilder extends AbstractPdfOutputParametersBuilder<MergePar
     	
     	PdfMergeInput modifiedInput = new PdfMergeInput(input.getSource(),newSelection);
     	this.inputs.add(modifiedInput);
-    	//this.inputs.add(input);
+
     }
 
     boolean hasInput() {
