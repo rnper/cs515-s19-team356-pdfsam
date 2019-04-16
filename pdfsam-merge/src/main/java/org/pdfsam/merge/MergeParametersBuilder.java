@@ -18,7 +18,11 @@
  */
 package org.pdfsam.merge;
 
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.pdfsam.support.params.AbstractPdfOutputParametersBuilder;
 import org.pdfsam.support.params.SingleOutputTaskParametersBuilder;
@@ -28,6 +32,7 @@ import org.sejda.model.outline.OutlinePolicy;
 import org.sejda.model.output.FileTaskOutput;
 import org.sejda.model.parameter.MergeParameters;
 import org.sejda.model.pdf.form.AcroFormPolicy;
+import org.sejda.model.pdf.page.PageRange;
 import org.sejda.model.toc.ToCPolicy;
 
 /**
@@ -49,8 +54,69 @@ class MergeParametersBuilder extends AbstractPdfOutputParametersBuilder<MergePar
     private FileTaskOutput output;
 
     void addInput(PdfMergeInput input) {
-        this.inputs.add(input);
+    	Set<PageRange> s = input.getPageSelection();
+    	SortedSet<Integer> pages = new TreeSet<Integer>();
+    	
+    	pages = getUniquePages(s, pages);
+    	
+    	removePageIntersections(input, pages);
+    	
     }
+
+	private SortedSet<Integer> getUniquePages(Set<PageRange> s, SortedSet<Integer> pages) {
+		for (PageRange pageRange:s)
+    	{
+    		int start = pageRange.getStart();
+    		int end = pageRange.getEnd();
+    		for(int count = start;count<=end;count++)
+    		{
+    			pages.add(count);
+    		}
+    	}
+		
+		return pages;
+	}
+
+	private void removePageIntersections(PdfMergeInput input, SortedSet<Integer> pages) {
+		if(pages.size()>0)
+    	{
+	    	int previous = -1;
+	    	int start = pages.first();
+	    	Set<PageRange> newSelection = new LinkedHashSet<PageRange>();
+	    	
+	    	for (int page: pages)
+	    	{
+	    		if(previous == -1)
+	    		{
+	    			previous = page;
+	    		}
+	    		else
+	    		{
+	    			if(page-previous!=1)
+	    			{
+	    				PageRange pageRange = new PageRange(start,previous);
+	    				newSelection.add(pageRange);
+	    				start = page;
+	    				previous = page;  				
+	    			}
+	    			else
+	    			{
+	    				previous++;
+	    			}
+	    		}
+	    	}
+	    	
+	    	PageRange pageRange = new PageRange(start,previous);
+	    	newSelection.add(pageRange);
+	    	
+	    	PdfMergeInput modifiedInput = new PdfMergeInput(input.getSource(),newSelection);
+	    	this.inputs.add(modifiedInput);
+    	}
+    	else
+    	{
+    		this.inputs.add(input);
+    	}
+	}
 
     boolean hasInput() {
         return !inputs.isEmpty();

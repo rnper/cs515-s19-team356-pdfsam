@@ -27,6 +27,16 @@
 			<artifactId>sejda-model</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.sejda</groupId>
+			<artifactId>sejda-core</artifactId>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.sejda/sambox -->
+		<dependency>
+			<groupId>org.sejda</groupId>
+			<artifactId>sejda-sambox</artifactId>
+			<version>3.2.56</version>
+		</dependency>
+		<dependency>
 			<groupId>org.pdfsam</groupId>
 			<artifactId>pdfsam-fx</artifactId>
 			<version>${project.version}</version>

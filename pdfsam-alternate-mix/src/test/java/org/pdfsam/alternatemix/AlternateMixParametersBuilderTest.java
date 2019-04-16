@@ -60,7 +60,7 @@ public class AlternateMixParametersBuilderTest {
         victim.addInput(third);
         victim.version(PdfVersion.VERSION_1_7);
         assertTrue(victim.hasInput());
-        AlternateMixMultipleInputParameters params = victim.build();
+        AlternateMixInputParameters params = victim.build();
         assertTrue(params.isCompress());
         assertEquals(ExistingOutputPolicy.OVERWRITE, params.getExistingOutputPolicy());
         assertEquals(PdfVersion.VERSION_1_7, params.getVersion());

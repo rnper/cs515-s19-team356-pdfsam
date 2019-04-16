@@ -264,11 +264,7 @@ public class SingleSelectionPane extends VBox implements ModuleOwned, PdfDocumen
     }
 
     private void initContextMenu() {
-        MenuItem infoItem = createMenuItem(DefaultI18nContext.getInstance().i18n("Document properties"),
-                MaterialDesignIcon.INFORMATION_OUTLINE);
-        infoItem.setAccelerator(new KeyCodeCombination(KeyCode.P, KeyCombination.ALT_DOWN));
-        infoItem.setOnAction(
-                e -> Platform.runLater(() -> eventStudio().broadcast(new ShowPdfDescriptorRequest(descriptor))));
+        MenuItem infoItem = getInfoItem();
 
         removeSelected = createMenuItem(DefaultI18nContext.getInstance().i18n("Remove"), MaterialDesignIcon.MINUS);
         removeSelected.setOnAction(e -> eventStudio().broadcast(new ClearModuleEvent(), getOwnerModule()));
@@ -291,6 +287,15 @@ public class SingleSelectionPane extends VBox implements ModuleOwned, PdfDocumen
         field.getTextField().setContextMenu(new ContextMenu(setDestinationItem, new SeparatorMenuItem(), removeSelected,
                 new SeparatorMenuItem(), infoItem, openFileItem, openFolderItem));
     }
+
+	private MenuItem getInfoItem() {
+		MenuItem infoItem = createMenuItem(DefaultI18nContext.getInstance().i18n("Document properties"),
+                MaterialDesignIcon.INFORMATION_OUTLINE);
+        infoItem.setAccelerator(new KeyCodeCombination(KeyCode.P, KeyCombination.ALT_DOWN));
+        infoItem.setOnAction(
+                e -> Platform.runLater(() -> eventStudio().broadcast(new ShowPdfDescriptorRequest(descriptor))));
+		return infoItem;
+	}
 
     @EventListener
     public void onClearSelected(ClearModuleEvent event) {

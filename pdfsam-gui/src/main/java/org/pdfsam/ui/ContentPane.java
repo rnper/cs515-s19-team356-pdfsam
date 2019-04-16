@@ -23,8 +23,6 @@ import static org.sejda.eventstudio.StaticStudio.eventStudio;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.pdfsam.news.HideNewsPanelRequest;
-import org.pdfsam.news.ShowNewsPanelRequest;
 import org.pdfsam.ui.commons.SetActiveModuleRequest;
 import org.pdfsam.ui.dashboard.Dashboard;
 import org.pdfsam.ui.event.SetActiveDashboardItemRequest;
@@ -49,31 +47,29 @@ public class ContentPane extends HBox {
 
     private WorkArea modules;
     private Dashboard dashboard;
-    private VBox newsContainer;
-    private FadeTransition fadeIn;
-    private FadeTransition fadeOut;
+    ContentPaneData data = new ContentPaneData();
 
-    @Inject
+	@Inject
     public ContentPane(WorkArea modules, Dashboard dashboard, NewsPanel news,
             @Named("defaultDashboardItemId") String defaultDasboardItem) {
         this.modules = modules;
         this.dashboard = dashboard;
-        this.newsContainer = new VBox(news);
-        this.newsContainer.getStyleClass().add("news-container");
+        this.data.newsContainer = new VBox(news);
+        this.data.newsContainer.getStyleClass().add("news-container");
         StackPane stack = new StackPane(modules, dashboard);
         setHgrow(stack, Priority.ALWAYS);
-        newsContainer.managedProperty().bind(newsContainer.visibleProperty());
-        newsContainer.setVisible(false);
-        fadeIn = new FadeTransition(new Duration(300), newsContainer);
-        fadeIn.setFromValue(0);
-        fadeIn.setToValue(1);
-        fadeOut = new FadeTransition(new Duration(300), newsContainer);
-        fadeOut.setFromValue(1);
-        fadeOut.setToValue(0);
-        fadeOut.setOnFinished(e -> {
-            newsContainer.setVisible(false);
+        data.newsContainer.managedProperty().bind(data.newsContainer.visibleProperty());
+        data.newsContainer.setVisible(false);
+        data.fadeIn = new FadeTransition(new Duration(300), data.newsContainer);
+        data.fadeIn.setFromValue(0);
+        data.fadeIn.setToValue(1);
+        data.fadeOut = new FadeTransition(new Duration(300), data.newsContainer);
+        data.fadeOut.setFromValue(1);
+        data.fadeOut.setToValue(0);
+        data.fadeOut.setOnFinished(e -> {
+            data.newsContainer.setVisible(false);
         });
-        getChildren().addAll(stack, newsContainer);
+        getChildren().addAll(stack, data.newsContainer);
         eventStudio().addAnnotatedListeners(this);
         eventStudio().broadcast(new SetActiveDashboardItemRequest(defaultDasboardItem));
     }
@@ -90,23 +86,6 @@ public class ContentPane extends HBox {
     public void onSetActiveDashboardItem(SetActiveDashboardItemRequest request) {
         dashboard.setVisible(true);
         modules.setVisible(false);
-    }
-
-    @EventListener(priority = Integer.MIN_VALUE)
-    @SuppressWarnings("unused")
-    public void onShowNewsPanel(ShowNewsPanelRequest request) {
-        if (!newsContainer.isVisible()) {
-            newsContainer.setVisible(true);
-            fadeIn.play();
-        }
-    }
-
-    @EventListener(priority = Integer.MIN_VALUE)
-    @SuppressWarnings("unused")
-    public void onHideNewsPanel(HideNewsPanelRequest request) {
-        if (newsContainer.isVisible()) {
-            fadeOut.play();
-        }
     }
 
 }
