@@ -57,7 +57,14 @@ class MergeParametersBuilder extends AbstractPdfOutputParametersBuilder<MergePar
     	Set<PageRange> s = input.getPageSelection();
     	SortedSet<Integer> pages = new TreeSet<Integer>();
     	
-    	for (PageRange pageRange:s)
+    	pages = getUniquePages(s, pages);
+    	
+    	removePageIntersections(input, pages);
+    	
+    }
+
+	private SortedSet<Integer> getUniquePages(Set<PageRange> s, SortedSet<Integer> pages) {
+		for (PageRange pageRange:s)
     	{
     		int start = pageRange.getStart();
     		int end = pageRange.getEnd();
@@ -66,8 +73,12 @@ class MergeParametersBuilder extends AbstractPdfOutputParametersBuilder<MergePar
     			pages.add(count);
     		}
     	}
-    	
-    	if(pages.size()>0)
+		
+		return pages;
+	}
+
+	private void removePageIntersections(PdfMergeInput input, SortedSet<Integer> pages) {
+		if(pages.size()>0)
     	{
 	    	int previous = -1;
 	    	int start = pages.first();
@@ -105,8 +116,7 @@ class MergeParametersBuilder extends AbstractPdfOutputParametersBuilder<MergePar
     	{
     		this.inputs.add(input);
     	}
-    	
-    }
+	}
 
     boolean hasInput() {
         return !inputs.isEmpty();
