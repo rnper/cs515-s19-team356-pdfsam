@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.2.3" icons="true" generate-combined-fragments="true">  
+  <object id="1" language="java" name="org.pdfsam.ui.module.BaseTaskExecutionModule" project="pdfsam-alternate-mix" 
+    file="/home/aaron/.m2/repository/org/pdfsam/pdfsam-fx/4.0.1/pdfsam-fx-4.0.1.jar" binary="true" 
+    label="baseTaskExecutionModule" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="923" y="0"/>    
+    <execution id="2">      
+      <position height="57" width="179" x="5" y="146"/>    
+    </execution>    
+    <execution id="5">      
+      <position height="19" width="179" x="5" y="722"/>    
+    </execution>  
+  </object>  
+  <object id="6" language="java" name="org.pdfsam.merge.MergeModule" project="pdfsam-merge" 
+    file="/pdfsam-merge/src/main/java/org/pdfsam/merge/MergeModule.java" binary="false" label="mergeModule" type="class" 
+    autoSize="true">    
+    <position height="-1" width="-1" x="1021" y="0"/>    
+    <execution id="4">      
+      <position height="19" width="100" x="188" y="165"/>    
+    </execution>    
+    <execution id="7">      
+      <position height="57" width="100" x="188" y="240"/>    
+    </execution>    
+    <execution id="10">      
+      <position height="19" width="100" x="188" y="628"/>    
+    </execution>    
+    <execution id="11">      
+      <position height="57" width="100" x="188" y="703"/>    
+    </execution>  
+  </object>  
+  <object id="13" language="java" name="org.pdfsam.merge.MergeSelectionPane" project="pdfsam-merge" 
+    file="/pdfsam-merge/src/main/java/org/pdfsam/merge/MergeSelectionPane.java" binary="false" 
+    label="mergeSelectionPane" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="972" y="0"/>    
+    <execution id="9">      
+      <position height="19" width="141" x="292" y="259"/>    
+    </execution>    
+    <execution id="14">      
+      <position height="57" width="141" x="292" y="341"/>    
+    </execution>    
+    <execution id="17">      
+      <position height="19" width="141" x="292" y="540"/>    
+    </execution>    
+    <execution id="18">      
+      <position height="57" width="141" x="292" y="609"/>    
+    </execution>  
+  </object>  
+  <object id="20" language="java" name="org.pdfsam.merge.MergeParametersBuilder" project="pdfsam-merge" 
+    file="/pdfsam-merge/src/main/java/org/pdfsam/merge/MergeParametersBuilder.java" binary="false" 
+    label="mergeParametersBuilder" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="1115" y="0"/>    
+    <execution id="16">      
+      <position height="19" width="168" x="437" y="360"/>    
+    </execution>    
+    <execution id="21">      
+      <position height="76" width="168" x="437" y="394"/>    
+    </execution>    
+    <execution id="23">      
+      <position height="19" width="168" x="437" y="432"/>    
+    </execution>    
+    <execution id="24">      
+      <position height="57" width="168" x="437" y="521"/>    
+    </execution>  
+  </object>  
+  <message id="3" asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="8" asynchronous="false">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="9"/>  
+  </message>  
+  <message id="12" asynchronous="false">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="5"/>  
+  </message>  
+  <message id="15" asynchronous="false">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="16"/>  
+  </message>  
+  <message id="19" asynchronous="false">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="10"/>  
+  </message>  
+  <message id="22" asynchronous="false">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="23"/>  
+  </message>  
+  <message id="25" asynchronous="false">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="17"/>  
+  </message>
+</sequence-diagram>
